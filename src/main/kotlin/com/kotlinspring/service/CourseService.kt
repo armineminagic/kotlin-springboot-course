@@ -54,7 +54,7 @@ class CourseService(val courseRepository: CourseRepository) {
                     courseRepository.deleteById(it.id!!)
                 }
         } else {
-            throw Exception("Course cannot be deleted!")
+            throw Exception("Course not found or cannot be deleted!")
         }
 
     }
