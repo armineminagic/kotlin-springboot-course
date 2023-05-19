@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service
 @Service
 class CourseService(val courseRepository: CourseRepository) {
 
-    companion object: KLogging()
+    companion object : KLogging()
 
-    fun addCourse(courseDTO: CourseDTO) : CourseDTO {
+    fun addCourse(courseDTO: CourseDTO): CourseDTO {
 
         val courseEntity = courseDTO.let {
             Course(null, it.name, it.category)
@@ -25,11 +25,11 @@ class CourseService(val courseRepository: CourseRepository) {
         }
     }
 
-    fun getAllCourses() : List<CourseDTO> {
+    fun getAllCourses(): List<CourseDTO> {
         return courseRepository.findAll().map { CourseDTO(it.id, it.name, it.category) }
     }
 
-    fun updateCourse(courseId: Int, courseDTO: CourseDTO) : CourseDTO {
+    fun updateCourse(courseId: Int, courseDTO: CourseDTO): CourseDTO {
         val course = courseRepository.findById(courseId)
         return if (course.isPresent) {
             logger.info { "Editing course: $course" }
@@ -43,5 +43,19 @@ class CourseService(val courseRepository: CourseRepository) {
         } else {
             throw Exception("Course with provided ID not exists!")
         }
+    }
+
+    fun deleteCourse(courseId: Int) {
+        val course = courseRepository.findById(courseId)
+        if (course.isPresent) {
+            logger.info { "Removing course: $course" }
+            course.get()
+                .let {
+                    courseRepository.deleteById(it.id!!)
+                }
+        } else {
+            throw Exception("Course cannot be deleted!")
+        }
+
     }
 }
