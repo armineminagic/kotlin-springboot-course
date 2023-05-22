@@ -2,31 +2,46 @@ package com.kotlinspring.service
 
 import com.kotlinspring.dto.CourseDTO
 import com.kotlinspring.entity.Course
+import com.kotlinspring.exceptions.InstructorNotValidException
 import com.kotlinspring.repository.CourseRepository
 import mu.KLogging
 import org.springframework.stereotype.Service
 
 @Service
-class CourseService(val courseRepository: CourseRepository) {
+class CourseService(
+    val courseRepository: CourseRepository,
+    val instructorService: InstructorService) {
 
     companion object : KLogging()
 
     fun addCourse(courseDTO: CourseDTO): CourseDTO {
 
+        val instructor = instructorService.findByInstructorId(courseDTO.instructorId!!)
+
+        if (!instructor.isPresent) {
+            logger.warn { "INSTRUCTOR IS NOT PRESENTED!" }
+            throw InstructorNotValidException("Instructor Not valid for the ID: ${courseDTO.instructorId}")
+        }
+
         val courseEntity = courseDTO.let {
-            Course(null, it.name, it.category)
+            Course(null, it.name, it.category, instructor.get())
         }
         courseRepository.save(courseEntity)
 
         logger.info { "Saved course is: $courseEntity" }
 
         return courseEntity.let {
-            CourseDTO(it.id, it.name, it.category)
+            CourseDTO(it.id, it.name, it.category, it.instructor!!.id)
         }
     }
 
-    fun getAllCourses(): List<CourseDTO> {
-        return courseRepository.findAll().map { CourseDTO(it.id, it.name, it.category) }
+    fun getAllCourses(courseName: String?): List<CourseDTO> {
+
+        val course = courseName?.let {
+            courseRepository.findCoursesByName(courseName)
+        } ?: courseRepository.findAll()
+
+        return course.map { CourseDTO(it.id, it.name, it.category) }
     }
 
     fun updateCourse(courseId: Int, courseDTO: CourseDTO): CourseDTO {

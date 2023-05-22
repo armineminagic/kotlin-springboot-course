@@ -11,5 +11,8 @@ data class Course(
     val id: Int?,
     var name: String,
     @Enumerated(EnumType.STRING)
-    var category: CATEGORY
+    var category: CATEGORY,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "INSTRUCTOR_ID", nullable = false)
+    var instructor: Instructor? = null
 )
