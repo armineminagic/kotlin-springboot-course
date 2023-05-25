@@ -1,4 +1,5 @@
-curl -i -d  '{"id":null, "name":"Test 1", "category":"SERVICE"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 2", "category":"DEVELOPMENT"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 3", "category":"BUSINESS"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 4", "category":"SCIENCE"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses
+curl -i -d  '{"id":null, "name":"Test 1", "category":"SCIENCE"}' -H "Content-Type: application/json" -X POST
+http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 2", "category":"DEVELOPMENT"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 3", "category":"BUSINESS"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 4", "category":"SCIENCE"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses
 
 
 POST instructor
@@ -8,4 +9,5 @@ curl -i \
 -H "Content-Type: application/json" \
 -X POST http://localhost:8080/instructors
 
-curl -i -d  '{"id":null, "name":"Test 1", "category":"SERVICE", "instructorId":"1"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test "2"", "category":"DEVELOPMENT","instructorId":"2"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 3", "category":"BUSINESS","instructorId":"3"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 4", "category":"SCIENCE", "instructorId":"4"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses
+curl -i -d  '{"id":null, "name":"Test 1", "category":"SCIENCE", "instructorId":"1"}' -H "Content-Type: application/json" -X POST
+ http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test "2"", "category":"DEVELOPMENT","instructorId":"2"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 3", "category":"BUSINESS","instructorId":"3"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses && curl -i -d  '{"id":null, "name":"Test 4", "category":"SCIENCE", "instructorId":"4"}' -H "Content-Type: application/json" -X POST http://localhost:8080/courses

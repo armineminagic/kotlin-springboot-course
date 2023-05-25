@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class GlobalErrorHandler : ResponseEntityExceptionHandler() {
 
     companion object : KLogging()
+
     @ExceptionHandler(InstructorNotValidException::class)
     fun handleAllExceptions(ex: InstructorNotValidException, request: WebRequest) : ResponseEntity<Any> {
         logger.error("Exception observed : ${ex.message}", ex)
